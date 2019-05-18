@@ -1,14 +1,14 @@
 package edu.slu.prog2;
 
-public class Labels {
-    private int room, pcno;
+public class Computer implements Comparable <Computer> {
+    private int room, computerNumber;
     private String updateStatus, MaintainStatus, os;
 
-    public Labels(String updateStatus, String MaintainStatus, String os, int room, int pcno){
+    public Computer (String updateStatus, String MaintainStatus, String os, int room, int computerNumber){
         this.updateStatus = updateStatus;
         this.MaintainStatus = MaintainStatus;
         this.os = os;
-        this.pcno = pcno;
+        this.computerNumber = computerNumber;
         this.room = room;
     }
 
@@ -24,8 +24,8 @@ public class Labels {
         return this.os;
     }
 
-    public int getPcno() {
-        return this.pcno;
+    public int getComputerNumber() {
+        return this.computerNumber;
     }
 
     public int getRoom() {
@@ -34,7 +34,11 @@ public class Labels {
 
     public String toString(){
         return String.format("%s %-25s %-8s %d %.2f",this.getUpdateStatus(),this.getMaintainStatus(),this.getOs(),
-                this.getPcno(),this.getOs());
+                this.getComputerNumber(),this.getRoom());
     }
+
+    public int compareTo (Computer other){
+        return this.getComputerNumber().compareTo(other.getComputerNumber);
+        }
 
 }
