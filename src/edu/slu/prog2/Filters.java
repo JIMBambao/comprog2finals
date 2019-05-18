@@ -52,8 +52,8 @@ class Filter{
 
         /* building the data structure, version 1.. */
 
-        for (Computer Computer : computerList) {
-            int pcno = labels.getPcNumber();
+        for (Computer computer : computerList) {
+            int pcNumber = labels.getPcNumber();
             int room = labels.getRoom();
 
             Map<Integer, Set<Computer>> roomList = allComputers.get(room);
@@ -63,7 +63,7 @@ class Filter{
                 allComputers.put(room, roomList);
             }
 
-            Set<Labels> pcList = roomList.get(pcNumber);
+            Set<Computer> pcList = roomList.get(pcNumber);
 
             if (pcList == null) {
                 pcList = new TreeSet<>();
@@ -72,5 +72,11 @@ class Filter{
 
             pcList.add(Computer);
         }
+    }
+    public static void displayComputersbyStatus(List<Computer> computerList){
+        computerList
+                .stream()
+                .collect(Collectors.groupingBy(Computer::))
+                //ano yung status frens? omg hahahahahaha sorry
     }
 }
