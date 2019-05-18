@@ -72,10 +72,15 @@ class Filter{
 
             pcList.add(Computer);
 
-            List <String> updateStatusList = pcNumber.get(updateStatus);
+            Map <String, Set <Computer>> updateStatusList = pcNumber.get(updateStatus);
             if (updateStatusList == null){
                 updateStatusList = new TreeMap <>();
                 updateStatusList.put(updateStatus, updateStatusList);
+            }
+
+            Map <String, Set<Computer>> maintainStatusList =
+                    maintainStatusList.computeIfAbsent{
+                maintainStatus, k -> new TreeMap<>();
             }
         }
 
@@ -105,4 +110,5 @@ class Filter{
                 )
                 //ano yung status frens? omg hahahahahaha sorry
     }
+
 }
