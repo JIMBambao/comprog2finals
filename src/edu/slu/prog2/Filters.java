@@ -1,18 +1,27 @@
-package edu.slu.prog2;
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Filter{
 
+    private static Scanner x;
     public static void main(String[] args) {
-        List<Labels> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
+        Path path = Paths.get("C:\\Users\\Geyl\\Desktop\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
+        List<String> stringList = getMac(path, "MAC");
 
-        displayItems(computerList);
+
+        //displayItems(computerList);
+        System.out.println(stringList);
 
     }
-    public static List<Labels> readDataFileIntoList(String filename) {
+    /*public static List<Labels> readDataFileIntoList(String filename) {
         try {
             ArrayList<Labels> computerList = new ArrayList<>();
 
@@ -52,7 +61,7 @@ class Filter{
 
         /* building the data structure, version 1.. */
 
-        for (Labels labels : computerList) {
+        /*for (Labels labels : computerList) {
             int pcno = labels.getPcno();
             int room = labels.getRoom();
 
@@ -72,5 +81,17 @@ class Filter{
 
             pcList.add(labels);
         }
+    }*/
+
+    public static List<String> getMac(Path path, String match){
+        List<String> macList = null;
+
+        try(Stream<String> stream = Files.lines(path)){
+            macList = stream.filter(line -> line.contains(match)).collect(Collectors.toList());
+        }catch(IOException ioe){
+
+        }
+        return macList;
     }
+
 }
