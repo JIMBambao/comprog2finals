@@ -7,14 +7,14 @@ import java.util.*;
 class Filter{
 
     public static void main(String[] args) {
-        List<Labels> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
+        List<Computer> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
 
         displayItems(computerList);
 
     }
-    public static List<Labels> readDataFileIntoList(String filename) {
+    public static List<Computer> readDataFileIntoList(String filename) {
         try {
-            ArrayList<Labels> computerList = new ArrayList<>();
+            ArrayList<Computer> computerList = new ArrayList<>();
 
             BufferedReader br = new BufferedReader(new FileReader(filename));
 
@@ -29,11 +29,11 @@ class Filter{
                 String maintainStatus = parts[1];
                 String os = parts[2];
                 int room = Integer.parseInt(parts[3]);
-                int pcno = Integer.parseInt(parts[4]);
+                int pcNumber = Integer.parseInt(parts[4]);
 
-                Labels labels = new Labels(updateStatus,maintainStatus,os,room,pcno);
+                Computer computer = new Computer(updateStatus,maintainStatus,os,room,pcNumber);
 
-                computerList.add(labels);
+                computerList.add(computer);
             } while (true);
 
             br.close();
@@ -45,32 +45,32 @@ class Filter{
         }
     }
 
-    public static void displayItems(List<Labels> computerList) {
+    public static void displayItems(List<Computer> computerList) {
 
-        Map<Integer, Map<Integer, Set<Labels>>> allComputers = new TreeMap<>();
+        Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
 
 
         /* building the data structure, version 1.. */
 
-        for (Labels labels : computerList) {
-            int pcno = labels.getPcno();
+        for (Computer Computer : computerList) {
+            int pcno = labels.getPcNumber();
             int room = labels.getRoom();
 
-            Map<Integer, Set<Labels>> roomList = allComputers.get(room);
+            Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
             if (roomList == null) {
                 roomList = new TreeMap<>();
                 allComputers.put(room, roomList);
             }
 
-            Set<Labels> pcList = roomList.get(pcno);
+            Set<Labels> pcList = roomList.get(pcNumber);
 
             if (pcList == null) {
                 pcList = new TreeSet<>();
-                roomList.put(pcno, pcList);
+                roomList.put(pcNumber, pcList);
             }
 
-            pcList.add(labels);
+            pcList.add(Computer);
         }
     }
 }
