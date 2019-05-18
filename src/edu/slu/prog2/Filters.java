@@ -85,7 +85,7 @@ class Filter{
         }
 
     }
-    public static void displayComputersbyStatus(List<Computer> computerList){
+    public static void displayComputersbyUpdateStatus(List<Computer> computerList){
         computerList
                 .stream()
                 .collect(Collectors.groupingBy(Computer::getRoom))
@@ -102,13 +102,29 @@ class Filter{
 
                                                 updateStatusList.forEach(
                                                         computer -> System.out.println(computer);
-                                                )
-                                            }
-
-                                    )
-                        }
-                )
+                                                );
+                                            });
+                        });
                 //ano yung status frens? omg hahahahahaha sorry
+    }
+    public static void displayComputerByMaintainStatus (List <Computer> computerList){
+        computerList
+                .forEach(
+                        (room, roomList) ->{
+                            ("\n\n*** Room: %s\n", room);
+
+                            roomList
+                                    .forEach(
+                                            (maintainStatus, maintainStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, maintainStatus);
+
+                                                maintainStatusList
+                                                        .forEach(
+                                                                computer -> System.out.println(student)
+                                                        );
+                                            });
+                        });
+
     }
 
 }
