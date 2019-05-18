@@ -8,6 +8,7 @@ public class Computer implements Comparable <Computer> {
         this.updateStatus = updateStatus;
         this.MaintainStatus = MaintainStatus;
         this.os = os;
+        this.pcStatus= pcStatus;
         this.pcNumber = pcNumber;
         this.room = room;
     }
@@ -23,6 +24,7 @@ public class Computer implements Comparable <Computer> {
     public String getOs() {
         return this.os;
     }
+
 
     public int getPcNumber() {
         return this.pcNumber;

@@ -53,8 +53,8 @@ class Filter{
         /* building the data structure, version 1.. */
 
         for (Computer computer : computerList) {
-            int pcNumber = labels.getPcNumber();
-            int room = labels.getRoom();
+            int pcNumber = computer.getPcNumber();
+            int room = computer.getRoom();
 
             Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
@@ -71,12 +71,38 @@ class Filter{
             }
 
             pcList.add(Computer);
+
+            List <String> updateStatusList = pcNumber.get(updateStatus);
+            if (updateStatusList == null){
+                updateStatusList == new TreeList <>();
+                updateStatusList.put(updateStatus, updateStatusList);
+            }
         }
+
     }
     public static void displayComputersbyStatus(List<Computer> computerList){
         computerList
                 .stream()
-                .collect(Collectors.groupingBy(Computer::))
+                .collect(Collectors.groupingBy(Computer::getRoom))
+                .forEach(
+                        (room, roomList) ->{
+                            System.out.printf ("\n\n*** Room: %s\n", room);
+
+                            roomList
+                                    .stream()
+                                    .collect(Collectors.groupingBy(Computer::getUpdateStatus))
+                                    .forEach(
+                                            (updateStatus, updateStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, updateStatus);
+
+                                                updateStatusList.forEach(
+                                                        computer -> System.out.println(computer);
+                                                )
+                                            }
+
+                                    )
+                        }
+                )
                 //ano yung status frens? omg hahahahahaha sorry
     }
 }
