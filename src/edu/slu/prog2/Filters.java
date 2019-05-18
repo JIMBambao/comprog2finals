@@ -74,7 +74,7 @@ class Filter{
 
             List <String> updateStatusList = pcNumber.get(updateStatus);
             if (updateStatusList == null){
-                updateStatusList == new TreeList <>();
+                updateStatusList = new TreeList <>();
                 updateStatusList.put(updateStatus, updateStatusList);
             }
         }
