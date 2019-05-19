@@ -27,7 +27,7 @@ class Filter{
                 String[] parts = line.split("[,]");
 
                 String room = parts[0];
-                int pcNumber = Integer.parssInt(parts[1]);
+                int pcNumber = Integer.parseInt(parts[1]);
                 String updateStatus = parts[2];
                 String maintenanceStatus = parts[3];
                 String operatingSystem = parts[4];
@@ -108,13 +108,12 @@ class Filter{
                                                 System.out.printf("\n* %s %d\n", room, updateStatus);
 
                                                 updateStatusList.forEach(
-                                                        computer -> System.out.println(computer);
-                                                );
+                                                        computer -> System.out.println(computer));
                                             });
                         });
                 //ano yung status frens? omg hahahahahaha sorry
     }
-    public static void displayComputerByMaintainStatus (List <Computer> computerList){
+    /*public static void displayComputerByMaintainStatus (List <Computer> computerList){
         computerList
                 .forEach(
                         (room, roomList) ->{
@@ -132,13 +131,31 @@ class Filter{
                                             });
                         });
 
-    }
+    }*/
     public static void displayComputerByOS(List<Computer> computerList){
-        List<Computer> collect = computerList
+       /* List<Computer> collect = computerList
                 .stream()
                 .filter(c -> Boolean.parseBoolean(c.getOperatingSystem()))
                 .collect(Collectors.toList());
-        assert(collect).contains("MAC");
+        assert(collect).contains("MAC");*/
+        computerList
+                .stream()
+                .collect(Collectors.groupingBy(Computer::getOperatingSystem))
+                .forEach(
+                        (os, macList) ->{
+                            System.out.printf ("\n\n*** OS: %s\n", os);
+
+                            macList
+                                    .stream()
+                                    .collect(Collectors.groupingBy(Computer::getUpdateStatus))
+                                    .forEach(
+                                            (updateStatus, updateStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", os, updateStatus);
+
+                                                updateStatusList.forEach(
+                                                        computer -> System.out.println(computer));
+                                            });
+                        });
     }
 
 }
