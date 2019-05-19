@@ -1,28 +1,20 @@
+package edu.slu.prog2;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class Filter{
 
     public static void main(String[] args) {
-        List<Labels> computerList = readDataFileIntoList("C:\\Users\\Geyl\\Desktop\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
-        List<String> stringList = getMac(computerList, "MAC");
-
+        List<Computer> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
 
         displayItems(computerList);
-        System.out.println(stringList);
 
     }
-    public static List<Labels> readDataFileIntoList(String filename) {
+    public static List<Computer> readDataFileIntoList(String filename) {
         try {
-            ArrayList<Labels> computerList = new ArrayList<>();
+            ArrayList<Computer> computerList = new ArrayList<>();
 
             BufferedReader br = new BufferedReader(new FileReader(filename));
 
@@ -37,11 +29,11 @@ class Filter{
                 String maintainStatus = parts[1];
                 String os = parts[2];
                 int room = Integer.parseInt(parts[3]);
-                int pcno = Integer.parseInt(parts[4]);
+                int pcNumber = Integer.parseInt(parts[4]);
 
-                Labels labels = new Labels(updateStatus,maintainStatus,os,room,pcno);
+                Computer computer = new Computer(updateStatus,maintainStatus,os,room,pcNumber);
 
-                computerList.add(labels);
+                computerList.add(computer);
             } while (true);
 
             br.close();
@@ -53,44 +45,86 @@ class Filter{
         }
     }
 
-    public static void displayItems(List<Labels> computerList) {
+    public static void displayItems(List<Computer> computerList) {
 
-        Map<Integer, Map<Integer, Set<Labels>>> allComputers = new TreeMap<>();
+        Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
 
 
         /* building the data structure, version 1.. */
 
-        for (Labels labels : computerList) {
-            int pcno = labels.getPcno();
-            int room = labels.getRoom();
+        for (Computer computer : computerList) {
+            int pcNumber = computer.getPcNumber();
+            int room = computer.getRoom();
 
-            Map<Integer, Set<Labels>> roomList = allComputers.get(room);
+            Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
             if (roomList == null) {
                 roomList = new TreeMap<>();
                 allComputers.put(room, roomList);
             }
 
-            Set<Labels> pcList = roomList.get(pcno);
+            Set<Computer> pcList = roomList.get(pcNumber);
 
             if (pcList == null) {
                 pcList = new TreeSet<>();
-                roomList.put(pcno, pcList);
+                roomList.put(pcNumber, pcList);
             }
 
-            pcList.add(labels);
+            pcList.add(Computer);
+
+            Map <String, Set <Computer>> updateStatusList = pcNumber.get(updateStatus);
+            if (updateStatusList == null){
+                updateStatusList = new TreeMap <>();
+                updateStatusList.put(updateStatus, updateStatusList);
+            }
+
+            Map <String, Set<Computer>> maintainStatusList =
+                    maintainStatusList.computeIfAbsent{
+                maintainStatus, k -> new TreeMap<>();
+            }
         }
+
     }
+    public static void displayComputersbyUpdateStatus(List<Computer> computerList){
+        computerList
+                .stream()
+                .collect(Collectors.groupingBy(Computer::getRoom))
+                .forEach(
+                        (room, roomList) ->{
+                            System.out.printf ("\n\n*** Room: %s\n", room);
 
-    public static List<String> getMac(List<Labels> computerList, String match){
-        List<String> macList = null;
+                            roomList
+                                    .stream()
+                                    .collect(Collectors.groupingBy(Computer::getUpdateStatus))
+                                    .forEach(
+                                            (updateStatus, updateStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, updateStatus);
 
-        try(Stream<String> stream = Files.lines(computerList)){
-            macList = stream.filter(line -> line.contains(match)).collect(Collectors.toList());
-        }catch(IOException ioe){
+                                                updateStatusList.forEach(
+                                                        computer -> System.out.println(computer);
+                                                );
+                                            });
+                        });
+                //ano yung status frens? omg hahahahahaha sorry
+    }
+    public static void displayComputerByMaintainStatus (List <Computer> computerList){
+        computerList
+                .forEach(
+                        (room, roomList) ->{
+                            ("\n\n*** Room: %s\n", room);
 
-        }
-        return macList;
+                            roomList
+                                    .forEach(
+                                            (maintainStatus, maintainStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, maintainStatus);
+
+                                                maintainStatusList
+                                                        .forEach(
+                                                                computer -> System.out.println(student)
+                                                        );
+                                            });
+                        });
+
     }
 
 }
