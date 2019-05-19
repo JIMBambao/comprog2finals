@@ -1,46 +1,101 @@
 package edu.slu.prog2;
 
-public class Computer implements Comparable <Computer> {
-    private int room, pcNumber;
-    private String updateStatus, MaintainStatus, os;
+public class Computer {
+    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAdress, IPAdressV6, MACAdress, RAMAmount, networkStatus;
+    private int pcNumber;
 
-    public Computer (String updateStatus, String MaintainStatus, String os, int room, int pcNumber){
+    public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
+                    String IPAdress, String IPAdressV6, String MACAdress, String RAMAmount,
+                    String networkStatus) {
+        this.room = room;
         this.updateStatus = updateStatus;
-        this.MaintainStatus = MaintainStatus;
-        this.os = os;
-        this.pcStatus= pcStatus;
+        this.maintenanceStatus = maintenanceStatus;
+        this.operatingSystem = operatingSystem;
+        this.IPAdress = IPAdress;
+        this.IPAdressV6 = IPAdressV6;
+        this.MACAdress = MACAdress;
+        this.RAMAmount = RAMAmount;
+        this.networkStatus = networkStatus;
         this.pcNumber = pcNumber;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
         this.room = room;
     }
 
     public String getUpdateStatus() {
-        return this.updateStatus;
+        return updateStatus;
     }
 
-    public String getMaintainStatus() {
-        return this.MaintainStatus;
+    public void setUpdateStatus(String updateStatus) {
+        this.updateStatus = updateStatus;
     }
 
-    public String getOs() {
-        return this.os;
+    public String getMaintenanceStatus() {
+        return maintenanceStatus;
     }
 
+    public void setMaintenanceStatus(String maintenanceStatus) {
+        this.maintenanceStatus = maintenanceStatus;
+    }
+
+    public String getOperatingSystem() {
+        return operatingSystem;
+    }
+
+    public void setOperatingSystem(String operatingSystem) {
+        this.operatingSystem = operatingSystem;
+    }
+
+    public String getIPAdress() {
+        return IPAdress;
+    }
+
+    public void setIPAdress(String IPAdress) {
+        this.IPAdress = IPAdress;
+    }
+
+    public String getIPAdressV6() {
+        return IPAdressV6;
+    }
+
+    public void setIPAdressV6(String IPAdressV6) {
+        this.IPAdressV6 = IPAdressV6;
+    }
+
+    public String getMACAdress() {
+        return MACAdress;
+    }
+
+    public void setMACAdress(String MACAdress) {
+        this.MACAdress = MACAdress;
+    }
+
+    public String getRAMAmount() {
+        return RAMAmount;
+    }
+
+    public void setRAMAmount(String RAMAmount) {
+        this.RAMAmount = RAMAmount;
+    }
+
+    public String getNetworkStatus() {
+        return networkStatus;
+    }
+
+    public void setNetworkStatus(String networkStatus) {
+        this.networkStatus = networkStatus;
+    }
 
     public int getPcNumber() {
-        return this.pcNumber;
+        return pcNumber;
     }
 
-    public int getRoom() {
-        return this.room;
+    public void setPcNumber(int pcNumber) {
+        this.pcNumber = pcNumber;
     }
-
-    public String toString(){
-        return String.format("%s %-25s %-8s %d %.2f",this.getUpdateStatus(),this.getMaintainStatus(),this.getOs(),
-                this.getPcNumber(),this.getRoom());
-    }
-
-    public int compareTo (Computer other){
-        return this.getPcNumber().compareTo(other.getPcNumber);
-        }
-
 }
