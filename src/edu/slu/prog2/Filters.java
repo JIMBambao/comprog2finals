@@ -3,6 +3,8 @@ package edu.slu.prog2;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Filter{
 
@@ -26,7 +28,7 @@ class Filter{
                 String[] parts = line.split("[,]");
 
                 String room = parts[0];
-                int pcNumber = Integer.parssInt(parts[1]);
+                int pcNumber = Integer.parseInt(parts[1]);
                 String updateStatus = parts[2];
                 String maintenanceStatus = parts[3];
                 String operatingSystem = parts[4];
@@ -52,21 +54,18 @@ class Filter{
     }
 
 
-    public static Stream <Computer> ComputersUnderMaintenanceSortedByRoom (List <Computer> computerList){
+    public Stream<Computer> ComputersUnderMaintenanceSortedByRoom (List <Computer> computerList){
         return computerList
                 .stream()
                 .filter(
                         computer -> computer.getMaintenanceStatus().equals("IN MAINTENANCE")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                            String.compareTo(computer1.getRoom(),student2.getRoom())
-
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
     public static Stream <Computer> ComputersMaintainedSortedByRoom (List <Computer> computerList){
@@ -76,13 +75,11 @@ class Filter{
                         computer -> computer.getMaintenanceStatus().equals("MAINTAINED")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
     public static Stream <Computer> ComputersUnmaintainedSortedByRoom (List <Computer> computerList){
@@ -92,62 +89,54 @@ class Filter{
                         computer -> computer.getMaintenanceStatus().equals("UNMAINTAINED")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
-    public static Stream <Computer> ComputersNotUpdatedSortedByRoom (List <Computer computerList>){
+    public static Stream <Computer> ComputersNotUpdatedSortedByRoom (List <Computer> computerList){
         return computerList
                 .stream()
                 .filter(
                         computer -> computer.getUpdateStatus().equals("NOT UPDATED")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
 
-    public static Stream <Computer> ComputersUpdatingSortedByRoom (List <Computer computerList>){
+    public static Stream <Computer> ComputersUpdatingSortedByRoom (List <Computer> computerList){
         return computerList
                 .stream()
                 .filter(
                         computer -> computer.getUpdateStatus().equals("UPDATING")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
-    public static Stream <Computer> ComputersUpdatedSortedByRoom (List <Computer computerList>){
+    public static Stream <Computer> ComputersUpdatedSortedByRoom (List <Computer> computerList){
         return computerList
                 .stream()
                 .filter(
                         computer -> computer.getUpdateStatus().equals("UPDATED")
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                        Comparator.comparing(Computer::getRoom)
                 )
                 .sorted(
-                        (computer1,computer2) ->
-                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
-                )
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
     }
 
 
@@ -161,7 +150,7 @@ class Filter{
 
         for (Computer computer : computerList) {
             int pcNumber = computer.getPcNumber();
-            int room = computer.getRoom();
+            int room = Integer.parseInt(computer.getRoom());
 
             Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
@@ -177,7 +166,7 @@ class Filter{
                 roomList.put(pcNumber, pcList);
             }
 
-            pcList.add(Computer);
+            pcList.add(computer);
 
             Map <String, Set <Computer>> updateStatusList = pcNumber.get(updateStatus);
             if (updateStatusList == null){
@@ -185,9 +174,9 @@ class Filter{
                 updateStatusList.put(updateStatus, updateStatusList);
             }
 
-            Map <String, Set<Computer>> maintainStatusList =
-                    maintainStatusList.computeIfAbsent{
-                maintainStatus, k -> new TreeMap<>();
+            Map <String, Set<Computer>> maintenanceStatusList =
+                    maintenanceStatusList.computeIfAbsent{
+                maintenanceStatusList, k -> new TreeMap<>();
             }
         }
 
@@ -208,13 +197,13 @@ class Filter{
                                                 System.out.printf("\n* %s %d\n", room, updateStatus);
 
                                                 updateStatusList.forEach(
-                                                        computer -> System.out.println(computer);
+                                                        computer -> System.out.println(computer)
                                                 );
                                             });
                         });
 
     }
-    public static void displayComputerByMaintainStatus (List <Computer> computerList){
+    public static void displayComputerByMaintenanceStatus (List <Computer> computerList){
         computerList
                 .forEach(
                         (room, roomList) ->{
@@ -222,12 +211,12 @@ class Filter{
 
                             roomList
                                     .forEach(
-                                            (maintainStatus, maintainStatusList) ->{
-                                                System.out.printf("\n* %s %d\n", room, maintainStatus);
+                                            (maintenanceStatus, maintainStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, maintenanceStatus);
 
                                                 maintainStatusList
                                                         .forEach(
-                                                                computer -> System.out.println(student)
+                                                                computer -> System.out.println(computer)
                                                         );
                                             });
                         });
