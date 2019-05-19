@@ -132,30 +132,24 @@ class Filter{
                         });
 
     }*/
-    public static void displayComputerByOS(List<Computer> computerList){
+    public static void displayMAC(List<Computer> computerList){
        /* List<Computer> collect = computerList
                 .stream()
                 .filter(c -> Boolean.parseBoolean(c.getOperatingSystem()))
                 .collect(Collectors.toList());
         assert(collect).contains("MAC");*/
-        computerList
+        List<Computer> computers = computerList
                 .stream()
-                .collect(Collectors.groupingBy(Computer::getOperatingSystem))
-                .forEach(
-                        (os, macList) ->{
-                            System.out.printf ("\n\n*** OS: %s\n", os);
-
-                            macList
-                                    .stream()
-                                    .collect(Collectors.groupingBy(Computer::getUpdateStatus))
-                                    .forEach(
-                                            (updateStatus, updateStatusList) ->{
-                                                System.out.printf("\n* %s %d\n", os, updateStatus);
-
-                                                updateStatusList.forEach(
-                                                        computer -> System.out.println(computer));
-                                            });
-                        });
+                .filter(c -> c.getOperatingSystem().equals("MAC")).collect(Collectors.toList());
+    }
+    public static void displayWindows(List<Computer> computerList){
+        List<Computer> computers = computerList
+                .stream()
+                .filter(x -> x.getOperatingSystem().equals("WINDOWS")).collect(Collectors.toList());
+    }
+    public void filterOnline(){
+        List<Computer> list = new ArrayList<>();
+        list.stream().filter(comp -> comp.equals("ONLINE")).forEach(System.out::println);
     }
 
 }
