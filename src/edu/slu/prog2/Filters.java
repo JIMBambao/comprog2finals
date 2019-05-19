@@ -9,9 +9,10 @@ import java.util.stream.Stream;
 class Filter{
 
     public static void main(String[] args) {
-        List<Computer> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
+        List<Computer> computerList = readDataFileIntoList("Computer_Lists.csv");
 
-        displayItems(computerList);
+        //displayItems(computerList);
+        displayComputersByUpdateStatus(computerList);
 
     }
     public static List<Computer> readDataFileIntoList(String filename) {
@@ -139,8 +140,6 @@ class Filter{
                 );
     }
 
-
-
     public static void displayItems(List<Computer> computerList) {
 
         Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
@@ -169,6 +168,7 @@ class Filter{
             pcList.add(computer);
 
         }
+
 
     }
     public static void displayComputersByUpdateStatus(List<Computer> computerList){
@@ -208,7 +208,7 @@ class Filter{
 
                                                 maintainStatusList
                                                         .forEach(
-                                                                computer -> System.out.println(computer)
+                                                                System.out::println
                                                         );
                                             });
                         });
