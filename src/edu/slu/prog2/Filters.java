@@ -52,11 +52,11 @@ class Filter{
     }
 
 
-    public static Stream <Computer> ComputersUndermaintenanceSortedByRoom (List <Computer> computerList){
+    public static Stream <Computer> ComputersUnderMaintenanceSortedByRoom (List <Computer> computerList){
         return computerList
                 .stream()
                 .filter(
-                        computer -> computer.getMaintenanceStatus() == "IN MAINTENANCE"
+                        computer -> computer.getMaintenanceStatus().equals("IN MAINTENANCE")
                 )
                 .sorted(
                         (computer1,computer2) ->
@@ -64,6 +64,33 @@ class Filter{
 
                 )
     }
+
+    public static Stream <Computer> ComputersMaintainedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getMaintenanceStatus().equals("MAINTAINED")
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                String.compareTo(computer1.getRoom(),student2.getRoom())
+
+                )
+    }
+
+    public static Stream <Computer> ComputersUnmaintainedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getMaintenanceStatus().equals("UNMAINTAINED")
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                )
+    }
+
+
     public static void displayItems(List<Computer> computerList) {
 
         Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
