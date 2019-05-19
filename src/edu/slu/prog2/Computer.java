@@ -1,22 +1,22 @@
 package edu.slu.prog2;
 
 public class Computer {
-    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAdress, IPAdressV6, MACAddress, RAMAmount, networkStatus;
+    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount, networkStatus;
     private int pcNumber;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
-                    String IPAdress, String IPAdressV6, String MACAddress, String RAMAmount,
+                    String IPAddress, String IPAdressV6, String MACAddress, String RAMAmount,
                     String networkStatus) {
         this.room = room;
+        this.pcNumber = pcNumber;
         this.updateStatus = updateStatus;
         this.maintenanceStatus = maintenanceStatus;
         this.operatingSystem = operatingSystem;
-        this.IPAdress = IPAdress;
-        this.IPAdressV6 = IPAdressV6;
+        this.IPAddress = IPAddress;
+        this.IPAddressV6 = IPAdressV6;
         this.MACAddress = MACAddress;
         this.RAMAmount = RAMAmount;
         this.networkStatus = networkStatus;
-        this.pcNumber = pcNumber;
     }
 
     public String getRoom() {
@@ -51,8 +51,8 @@ public class Computer {
         this.operatingSystem = operatingSystem;
     }
 
-    public String getIPAdress() {
-        return IPAdress;
+    public String getIPAddress() {
+        return IPAddess;
     }
 
     public void setIPAdress(String IPAdress) {

@@ -25,13 +25,19 @@ class Filter{
 
                 String[] parts = line.split("[,]");
 
-                String updateStatus = parts[0];
-                String maintainStatus = parts[1];
-                String os = parts[2];
-                int room = Integer.parseInt(parts[3]);
-                int pcNumber = Integer.parseInt(parts[4]);
+                String room = parts[0];
+                int pcNumber = Integer.parssInt(parts[1]);
+                String updateStatus = parts[2];
+                String maintenanceStatus = parts[3];
+                String operatingSystem = parts[4];
+                String IPAddress = parts[5];
+                String IPAddressV6 = parts[6];
+                String MACAddress = parts[7];
+                String RAMAmount = parts [8];
+                String networkStatus = parts [9];
 
-                Computer computer = new Computer(updateStatus,maintainStatus,os,room,pcNumber);
+                Computer computer = new Computer(room, pcNumber,updateStatus,maintenanceStatus, operatingSystem, IPAddress,
+                        IPAddressV6, MACAddress,RAMAmount, networkStatus);
 
                 computerList.add(computer);
             } while (true);
