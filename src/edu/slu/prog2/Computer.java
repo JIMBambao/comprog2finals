@@ -1,22 +1,23 @@
 package edu.slu.prog2;
 
 public class Computer {
-    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount, networkStatus;
+    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount;
     private int pcNumber;
+    private boolean networkConnection;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
-                    String IPAddress, String IPAdressV6, String MACAddress, String RAMAmount,
-                    String networkStatus) {
+                    String IPAddress, String IPAddressV6, String MACAddress, String RAMAmount,
+                    boolean networkConnection) {
         this.room = room;
         this.pcNumber = pcNumber;
         this.updateStatus = updateStatus;
         this.maintenanceStatus = maintenanceStatus;
         this.operatingSystem = operatingSystem;
         this.IPAddress = IPAddress;
-        this.IPAddressV6 = IPAdressV6;
+        this.IPAddressV6 = IPAddressV6;
         this.MACAddress = MACAddress;
         this.RAMAmount = RAMAmount;
-        this.networkStatus = networkStatus;
+        this.networkConnection = networkConnection;
     }
 
     public String getRoom() {
@@ -52,19 +53,19 @@ public class Computer {
     }
 
     public String getIPAddress() {
-        return IPAddess;
+        return IPAddress;
     }
 
-    public void setIPAdress(String IPAdress) {
-        this.IPAdress = IPAdress;
+    public void setIPAddress(String IPAddress) {
+        this.IPAddress = IPAddress;
     }
 
-    public String getIPAdressV6() {
-        return IPAdressV6;
+    public String getIPAddressV6() {
+        return IPAddressV6;
     }
 
-    public void setIPAdressV6(String IPAdressV6) {
-        this.IPAdressV6 = IPAdressV6;
+    public void setIPAddressV6(String IPAddressV6) {
+        this.IPAddressV6 = IPAddressV6;
     }
 
     public String getMACAddress() {
@@ -83,19 +84,19 @@ public class Computer {
         this.RAMAmount = RAMAmount;
     }
 
-    public String getNetworkStatus() {
-        return networkStatus;
-    }
-
-    public void setNetworkStatus(String networkStatus) {
-        this.networkStatus = networkStatus;
-    }
-
     public int getPcNumber() {
         return pcNumber;
     }
 
     public void setPcNumber(int pcNumber) {
         this.pcNumber = pcNumber;
+    }
+
+    public boolean isNetworkConnection() {
+        return networkConnection;
+    }
+
+    public void setNetworkConnection(boolean networkConnection) {
+        this.networkConnection = networkConnection;
     }
 }
