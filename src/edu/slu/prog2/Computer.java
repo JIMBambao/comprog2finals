@@ -1,11 +1,11 @@
 package edu.slu.prog2;
 
 public class Computer {
-    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAdress, IPAdressV6, MACAdress, RAMAmount, networkStatus;
+    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAdress, IPAdressV6, MACAddress, RAMAmount, networkStatus;
     private int pcNumber;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
-                    String IPAdress, String IPAdressV6, String MACAdress, String RAMAmount,
+                    String IPAdress, String IPAdressV6, String MACAddress, String RAMAmount,
                     String networkStatus) {
         this.room = room;
         this.updateStatus = updateStatus;
@@ -13,7 +13,7 @@ public class Computer {
         this.operatingSystem = operatingSystem;
         this.IPAdress = IPAdress;
         this.IPAdressV6 = IPAdressV6;
-        this.MACAdress = MACAdress;
+        this.MACAddress = MACAddress;
         this.RAMAmount = RAMAmount;
         this.networkStatus = networkStatus;
         this.pcNumber = pcNumber;
@@ -67,12 +67,12 @@ public class Computer {
         this.IPAdressV6 = IPAdressV6;
     }
 
-    public String getMACAdress() {
-        return MACAdress;
+    public String getMACAddress() {
+        return MACAddress;
     }
 
-    public void setMACAdress(String MACAdress) {
-        this.MACAdress = MACAdress;
+    public void setMACAddress(String MACAddress) {
+        this.MACAddress = MACAddress;
     }
 
     public String getRAMAmount() {
