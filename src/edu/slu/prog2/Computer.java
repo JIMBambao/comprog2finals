@@ -3,7 +3,7 @@ package edu.slu.prog2;
 public class Computer implements Comparable<Computer> {
     private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount, networkStatus;
     private int pcNumber;
-    boolean networkConnection;
+    private boolean networkConnection;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
                     String IPAddress, String IPAddressV6, String MACAddress, String RAMAmount,
