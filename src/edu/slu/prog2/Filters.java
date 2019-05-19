@@ -3,6 +3,7 @@ package edu.slu.prog2;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Filter{
 
@@ -131,6 +132,13 @@ class Filter{
                                             });
                         });
 
+    }
+    public static void displayComputerByOS(List<Computer> computerList){
+        List<Computer> collect = computerList
+                .stream()
+                .filter(c -> Boolean.parseBoolean(c.getOperatingSystem()))
+                .collect(Collectors.toList());
+        assert(collect).contains("MAC");
     }
 
 }
