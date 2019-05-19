@@ -36,7 +36,7 @@ class Filter{
                 String IPAddressV6 = parts[6];
                 String MACAddress = parts[7];
                 String RAMAmount = parts [8];
-                String networkStatus = parts [9];
+                boolean networkStatus = Boolean.valueOf( parts [9]);
 
                 Computer computer = new Computer(room, pcNumber,updateStatus,maintenanceStatus, operatingSystem, IPAddress,
                         IPAddressV6, MACAddress,RAMAmount, networkStatus);
@@ -168,16 +168,6 @@ class Filter{
 
             pcList.add(computer);
 
-            Map <String, Set <Computer>> updateStatusList = pcNumber.get(updateStatus);
-            if (updateStatusList == null){
-                updateStatusList = new TreeMap <>();
-                updateStatusList.put(updateStatus, updateStatusList);
-            }
-
-            Map <String, Set<Computer>> maintenanceStatusList =
-                    maintenanceStatusList.computeIfAbsent{
-                maintenanceStatusList, k -> new TreeMap<>();
-            }
         }
 
     }
@@ -188,7 +178,6 @@ class Filter{
                 .forEach(
                         (room, roomList) ->{
                             System.out.printf ("\n\n*** Room: %s\n", room);
-
                             roomList
                                     .stream()
                                     .collect(Collectors.groupingBy(Computer::getUpdateStatus))
@@ -205,11 +194,14 @@ class Filter{
     }
     public static void displayComputerByMaintenanceStatus (List <Computer> computerList){
         computerList
+                .stream()
+                .collect(Collectors.groupingBy(Computer::getRoom))
                 .forEach(
                         (room, roomList) ->{
-                            ("\n\n*** Room: %s\n", room);
-
+                           System.out.printf ("\n\n*** Room: %s\n", room);
                             roomList
+                                    .stream()
+                                    .collect(Collectors.groupingBy(Computer::getMaintenanceStatus))
                                     .forEach(
                                             (maintenanceStatus, maintainStatusList) ->{
                                                 System.out.printf("\n* %s %d\n", room, maintenanceStatus);
