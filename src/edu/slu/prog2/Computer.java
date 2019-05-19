@@ -1,13 +1,14 @@
 package edu.slu.prog2;
 
-public class Computer implements Comparable <Computer>{
+public class Computer{
+    //implements Comparable <Computer>{
     private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount;
     private boolean networkStatus;
     private int pcNumber;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
                     String IPAddress, String IPAddressV6, String MACAddress, String RAMAmount,
-                    String networkStatus) {
+                    boolean networkStatus) {
         this.room = room;
         this.pcNumber = pcNumber;
         this.updateStatus = updateStatus;
@@ -84,11 +85,11 @@ public class Computer implements Comparable <Computer>{
         this.RAMAmount = RAMAmount;
     }
 
-    public String getNetworkStatus() {
+    public boolean getNetworkStatus() {
         return networkStatus;
     }
 
-    public void setNetworkStatus(String networkStatus) {
+    public void setNetworkStatus(boolean networkStatus) {
         this.networkStatus = networkStatus;
     }
 
@@ -100,7 +101,7 @@ public class Computer implements Comparable <Computer>{
         this.pcNumber = pcNumber;
     }
 
-    public int compareTo(Computer other) {
-        return this.getPcNumber().compareTo(other.getPcNumber());
-    }
+//    public int compareTo(Computer other) {
+//        return this.getPcNumber().compareTo(other.getPcNumber());
+//    }
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Filter{
 
@@ -35,7 +36,7 @@ class Filter{
                 String IPAddressV6 = parts[6];
                 String MACAddress = parts[7];
                 String RAMAmount = parts [8];
-                String networkStatus = parts [9];
+                boolean networkStatus = Boolean.valueOf( parts [9]);
 
                 Computer computer = new Computer(room, pcNumber,updateStatus,maintenanceStatus, operatingSystem, IPAddress,
                         IPAddressV6, MACAddress,RAMAmount, networkStatus);
@@ -52,6 +53,94 @@ class Filter{
         }
     }
 
+
+    public Stream<Computer> ComputersUnderMaintenanceSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getMaintenanceStatus().equals("IN MAINTENANCE")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+    public static Stream <Computer> ComputersMaintainedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getMaintenanceStatus().equals("MAINTAINED")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+    public static Stream <Computer> ComputersUnmaintainedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getMaintenanceStatus().equals("UNMAINTAINED")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+    public static Stream <Computer> ComputersNotUpdatedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("NOT UPDATED")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+
+    public static Stream <Computer> ComputersUpdatingSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("UPDATING")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+    public static Stream <Computer> ComputersUpdatedSortedByRoom (List <Computer> computerList){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("UPDATED")
+                )
+                .sorted(
+                        Comparator.comparing(Computer::getRoom)
+                )
+                .sorted(
+                        Comparator.comparingInt(Computer::getPcNumber)
+                );
+    }
+
+
+
     public static void displayItems(List<Computer> computerList) {
 
         Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
@@ -61,7 +150,7 @@ class Filter{
 
         for (Computer computer : computerList) {
             int pcNumber = computer.getPcNumber();
-            int room = computer.getRoom();
+            int room = Integer.parseInt(computer.getRoom());
 
             Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
@@ -77,29 +166,18 @@ class Filter{
                 roomList.put(pcNumber, pcList);
             }
 
-            pcList.add(Computer);
+            pcList.add(computer);
 
-            Map <String, Set <Computer>> updateStatusList = pcNumber.get(updateStatus);
-            if (updateStatusList == null){
-                updateStatusList = new TreeMap <>();
-                updateStatusList.put(updateStatus, updateStatusList);
-            }
-
-            Map <String, Set<Computer>> maintainStatusList =
-                    maintainStatusList.computeIfAbsent{
-                maintainStatus, k -> new TreeMap<>();
-            }
         }
 
     }
-    public static void displayComputersbyUpdateStatus(List<Computer> computerList){
+    public static void displayComputersByUpdateStatus(List<Computer> computerList){
         computerList
                 .stream()
                 .collect(Collectors.groupingBy(Computer::getRoom))
                 .forEach(
                         (room, roomList) ->{
                             System.out.printf ("\n\n*** Room: %s\n", room);
-
                             roomList
                                     .stream()
                                     .collect(Collectors.groupingBy(Computer::getUpdateStatus))
@@ -108,30 +186,34 @@ class Filter{
                                                 System.out.printf("\n* %s %d\n", room, updateStatus);
 
                                                 updateStatusList.forEach(
-                                                        computer -> System.out.println(computer));
+                                                        computer -> System.out.println(computer)
+                                                );
                                             });
                         });
-                //ano yung status frens? omg hahahahahaha sorry
+
     }
-    /*public static void displayComputerByMaintainStatus (List <Computer> computerList){
+    public static void displayComputerByMaintenanceStatus (List <Computer> computerList){
         computerList
+                .stream()
+                .collect(Collectors.groupingBy(Computer::getRoom))
                 .forEach(
                         (room, roomList) ->{
-                            ("\n\n*** Room: %s\n", room);
-
+                            System.out.printf ("\n\n*** Room: %s\n", room);
                             roomList
+                                    .stream()
+                                    .collect(Collectors.groupingBy(Computer::getMaintenanceStatus))
                                     .forEach(
-                                            (maintainStatus, maintainStatusList) ->{
-                                                System.out.printf("\n* %s %d\n", room, maintainStatus);
+                                            (maintenanceStatus, maintainStatusList) ->{
+                                                System.out.printf("\n* %s %d\n", room, maintenanceStatus);
 
                                                 maintainStatusList
                                                         .forEach(
-                                                                computer -> System.out.println(student)
+                                                                computer -> System.out.println(computer)
                                                         );
                                             });
                         });
 
-    }*/
+    }
     public static void displayMAC(List<Computer> computerList){
        /* List<Computer> collect = computerList
                 .stream()
