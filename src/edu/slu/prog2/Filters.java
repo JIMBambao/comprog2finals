@@ -63,6 +63,10 @@ class Filter{
                             String.compareTo(computer1.getRoom(),student2.getRoom())
 
                 )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
+                )
     }
 
     public static Stream <Computer> ComputersMaintainedSortedByRoom (List <Computer> computerList){
@@ -74,7 +78,10 @@ class Filter{
                 .sorted(
                         (computer1,computer2) ->
                                 String.compareTo(computer1.getRoom(),student2.getRoom())
-
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
                 )
     }
 
@@ -88,7 +95,61 @@ class Filter{
                         (computer1,computer2) ->
                                 String.compareTo(computer1.getRoom(),student2.getRoom())
                 )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
+                )
     }
+
+    public static Stream <Computer> ComputersNotUpdatedSortedByRoom (List <Computer computerList>){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("NOT UPDATED")
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
+                )
+    }
+
+
+    public static Stream <Computer> ComputersUpdatingSortedByRoom (List <Computer computerList>){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("UPDATING")
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
+                )
+    }
+
+    public static Stream <Computer> ComputersUpdatedSortedByRoom (List <Computer computerList>){
+        return computerList
+                .stream()
+                .filter(
+                        computer -> computer.getUpdateStatus().equals("UPDATED")
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                String.compareTo(computer1.getRoom(),student2.getRoom())
+                )
+                .sorted(
+                        (computer1,computer2) ->
+                                Integer.compare(computer1.getPcNumber(),computer2.getPcNumber())
+                )
+    }
+
 
 
     public static void displayItems(List<Computer> computerList) {
