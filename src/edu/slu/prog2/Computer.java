@@ -1,11 +1,12 @@
 package edu.slu.prog2;
 
-public class Computer {
-    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount, networkStatus;
+public class Computer implements Comparable <Computer>{
+    private String room, updateStatus, maintenanceStatus, operatingSystem, IPAddress, IPAddressV6, MACAddress, RAMAmount;
+    private boolean networkStatus;
     private int pcNumber;
 
     public Computer(String room,int pcNumber, String updateStatus, String maintenanceStatus, String operatingSystem,
-                    String IPAddress, String IPAdressV6, String MACAddress, String RAMAmount,
+                    String IPAddress, String IPAddressV6, String MACAddress, String RAMAmount,
                     String networkStatus) {
         this.room = room;
         this.pcNumber = pcNumber;
@@ -13,7 +14,7 @@ public class Computer {
         this.maintenanceStatus = maintenanceStatus;
         this.operatingSystem = operatingSystem;
         this.IPAddress = IPAddress;
-        this.IPAddressV6 = IPAdressV6;
+        this.IPAddressV6 = IPAddressV6;
         this.MACAddress = MACAddress;
         this.RAMAmount = RAMAmount;
         this.networkStatus = networkStatus;
@@ -52,19 +53,19 @@ public class Computer {
     }
 
     public String getIPAddress() {
-        return IPAddess;
+        return IPAddress;
     }
 
-    public void setIPAdress(String IPAdress) {
-        this.IPAdress = IPAdress;
+    public void setIPAddress(String IPAddress) {
+        this.IPAddress = IPAddress;
     }
 
-    public String getIPAdressV6() {
-        return IPAdressV6;
+    public String getIPAddressV6() {
+        return IPAddressV6;
     }
 
-    public void setIPAdressV6(String IPAdressV6) {
-        this.IPAdressV6 = IPAdressV6;
+    public void setIPAddressV6(String IPAddressV6) {
+        this.IPAddressV6 = IPAddressV6;
     }
 
     public String getMACAddress() {
@@ -97,5 +98,9 @@ public class Computer {
 
     public void setPcNumber(int pcNumber) {
         this.pcNumber = pcNumber;
+    }
+
+    public int compareTo(Computer other) {
+        return this.getPcNumber().compareTo(other.getPcNumber());
     }
 }
