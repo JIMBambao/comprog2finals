@@ -3,15 +3,20 @@ package edu.slu.prog2;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
-class Filter{
+class Filters{
+
+    static List<Computer> computerList;
 
     public static void main(String[] args) {
-        List<Computer> computerList = readDataFileIntoList("D:\\FinalProjectFinalsLecture\\data\\Computer_Lists.csv");
+        computerList = readDataFileIntoList("\\data\\Computer_Lists.csv");
 
         displayItems(computerList);
 
     }
+
+        //TODO Update this
     public static List<Computer> readDataFileIntoList(String filename) {
         try {
             ArrayList<Computer> computerList = new ArrayList<>();
@@ -26,7 +31,7 @@ class Filter{
                 String[] parts = line.split("[,]");
 
                 String room = parts[0];
-                int pcNumber = Integer.parssInt(parts[1]);
+                int pcNumber = Integer.parseInt(parts[1]);
                 String updateStatus = parts[2];
                 String maintenanceStatus = parts[3];
                 String operatingSystem = parts[4];
@@ -34,7 +39,7 @@ class Filter{
                 String IPAddressV6 = parts[6];
                 String MACAddress = parts[7];
                 String RAMAmount = parts [8];
-                String networkStatus = parts [9];
+                boolean networkStatus = parts[9].equalsIgnoreCase("ONLINE");
 
                 Computer computer = new Computer(room, pcNumber,updateStatus,maintenanceStatus, operatingSystem, IPAddress,
                         IPAddressV6, MACAddress,RAMAmount, networkStatus);
@@ -51,16 +56,18 @@ class Filter{
         }
     }
 
+
+    //Display update status
     public static void displayItems(List<Computer> computerList) {
 
-        Map<Integer, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
+        Map<String, Map<Integer, Set<Computer>>> allComputers = new TreeMap<>();
 
 
         /* building the data structure, version 1.. */
 
         for (Computer computer : computerList) {
             int pcNumber = computer.getPcNumber();
-            int room = computer.getRoom();
+            String room = computer.getRoom();
 
             Map<Integer, Set<Computer>> roomList = allComputers.get(room);
 
